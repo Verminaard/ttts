@@ -19,9 +19,10 @@
         </main>
         <!--Main script-->
         <script type="module">
+            import {server_host_name, server_port_number} from "./config.js";
             const header_date = document.querySelector("header h2")
             const main_content = document.querySelector("main")         
-            fetch("http://localhost:3221/stat.txt")
+            fetch(`http://${serverHostName}:${serverPortNumber}/stat.txt`)
                 .then((result) => {
                     header_date.innerHTML = result.headers.get('Last-Modified')
                     return result.text()
@@ -31,8 +32,8 @@
                     const stats = text.split('\n')
                     temp_content += `<table><tr><th>IP</th><th>Authentication failure number</th></tr>`
                     stats.forEach((stat_line) => {
-                        const stat = stat_line.split(' ')
-                        temp_content += `<tr><td>${stat[0]}</td><td>${stat[1]}</td></tr>`
+                        stat = stat_line.split(' ')
+                            temp_content += `<tr><td>${stat[0]}</td><td>${stat[1]}</td></tr>`
                     })
                     temp_content +=`</table>`
                     main_content.innerHTML = temp_content

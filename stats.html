@@ -27,22 +27,22 @@
                     return result.text()
                 })
                 .then((text) => {
-                    var temp_content = "";
-                    const stats = text.split(' ');
-                    var isIP = true;
+                    var temp_content = ""
+                    const stats = text.split('\n')
                     temp_content += `<table><tr><th>IP</th><th>Authentication failure number</th></tr>`
-                    stats.forEach((stat) => {
-                        if (isIP) {
-                            temp_content += `<tr><td>${stat}</td>`
+                    stats.forEach((stat_line) => {
+                        stat = stat_line.split(' ')
+                        if (is_IP) {
+                            temp_content += `<tr><td>${stat[0]}</td>`
                         } else {
-                            temp_content += `<td>${stat}</td></tr>`
+                            temp_content += `<td>${stat[1]}</td></tr>`
                         }
-                        isIP = !isIP
+                        is_IP = !is_IP
                     })
                     temp_content +=`</table>`
                     main_content.innerHTML = temp_content
                 })
-                .catch((e) => console.error(e));
+                .catch((e) => console.error(e))
         </script>
     </body>
 </html>

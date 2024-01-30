@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Auth stats</title>
+    </head>
+    <body>
+        <header>
+            <h1>Auth stats.</h1>
+            <h2></h2>
+        </header>
+        <main>
+        </main>
+        <!--Main script-->
+        <script type="module">
+            const header_date = document.querySelector("header h2")
+            const main_content = document.querySelector("main")
+            fetch("http://localhost:3221/stat.txt")
+                .then((result) => {
+                    header_date.innerHTML = result.headers.get('Last-Modified')
+                    return result.text()
+                })
+                .then((text) => {
+                    main_content.innerHTML = text
+                })
+                .catch((e) => console.error(e));
+        </script>
+    </body>
+</html>

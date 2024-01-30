@@ -4,6 +4,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Auth stats</title>
+        <style type="text/css">
+            table, th, td {
+                border: 1px solid black;
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -15,14 +20,27 @@
         <!--Main script-->
         <script type="module">
             const header_date = document.querySelector("header h2")
-            const main_content = document.querySelector("main")
+            const main_content = document.querySelector("main")         
             fetch("http://localhost:3221/stat.txt")
                 .then((result) => {
                     header_date.innerHTML = result.headers.get('Last-Modified')
                     return result.text()
                 })
                 .then((text) => {
-                    main_content.innerHTML = text
+                    var temp_content = "";
+                    const stats = text.split(' ');
+                    var isIP = true;
+                    temp_content += `<table><tr><th>IP</th><th>Authentication failure number</th></tr>`
+                    stats.forEach((stat) => {
+                        if (isIP) {
+                            temp_content += `<tr><td>${stat}</td>`
+                        } else {
+                            temp_content += `<td>${stat}</td></tr>`
+                        }
+                        isIP = !isIP
+                    })
+                    temp_content +=`</table>`
+                    main_content.innerHTML = temp_content
                 })
                 .catch((e) => console.error(e));
         </script>

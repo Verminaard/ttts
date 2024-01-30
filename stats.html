@@ -32,11 +32,7 @@
                     temp_content += `<table><tr><th>IP</th><th>Authentication failure number</th></tr>`
                     stats.forEach((stat_line) => {
                         const stat = stat_line.split(' ')
-                        if (is_IP) {
-                            temp_content += `<tr><td>${stat[0]}</td>`
-                        } else {
-                            temp_content += `<td>${stat[1]}</td></tr>`
-                        }
+                        temp_content += `<tr><td>${stat[0]}</td><td>${stat[1]}</td></tr>`
                     })
                     temp_content +=`</table>`
                     main_content.innerHTML = temp_content
